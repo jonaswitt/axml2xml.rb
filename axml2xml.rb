@@ -4,6 +4,7 @@ require 'zip/zip'
 
 DEBUG = true
 
+TAG_SUPPORTS_CHILDREN = 0x00100100
 END_DOC_TAG = 0x00100101
 START_TAG = 0x00100102
 END_TAG = 0x00100103
@@ -130,6 +131,10 @@ while (offset < data.length)
   # Found the end, we're done
   elsif tag0 == END_DOC_TAG
     break
+  elsif tag0 == TAG_SUPPORTS_CHILDREN
+    offset += 24
+  else 
+    raise "Unknown tag: #{tag0}"
   end
 end
 
